@@ -32,7 +32,8 @@ extension StructuredDataWrapper {
 
 extension Request {
     var baseUrl: String? {
-        guard let host = headers["Host"]?.finished(with: "/") else { return nil }
-        return "\(uri.scheme)://\(host)"
+        guard let host = headers["X-Forwarded-Host"] ?? headers["Host"] else { return nil }
+        let scheme = headers["X-Forwarded-Proto"] ?? uri.scheme
+        return "\(scheme)://" + host.finished(with: "/")
     }
 }

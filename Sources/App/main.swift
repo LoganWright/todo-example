@@ -22,15 +22,15 @@ try drop.addProvider(LeafProvider.Provider)
 try drop.addProvider(MySQLProvider.Provider)
 #endif
 
-struct LogMiddleware: Middleware {
-    func respond(to request: Request, chainingTo next: Responder) throws -> Response {
-        print("Incoming:\n\(request)")
-        let outgoing = try next.respond(to: request)
-        print("Outgoing:\n\(outgoing)")
-        return outgoing
-    }
-}
-drop.middleware.insert(LogMiddleware(), at: 0)
+//struct LogMiddleware: Middleware {
+//    func respond(to request: Request, chainingTo next: Responder) throws -> Response {
+//        print("Incoming:\n\(request)")
+//        let outgoing = try next.respond(to: request)
+//        print("Outgoing:\n\(outgoing)")
+//        return outgoing
+//    }
+//}
+//drop.middleware.insert(LogMiddleware(), at: 0)
 
 // MARK: Landing Pages
 
