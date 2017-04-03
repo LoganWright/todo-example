@@ -8,6 +8,8 @@ import MySQLProvider
 var config = try Config.default()
 #if os(macOS)
 config["fluent.driver"] = "memory"
+#else
+config["fluent.driver"] = "mysql"
 #endif
 
 let drop = try Droplet(config: config)
