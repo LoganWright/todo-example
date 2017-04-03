@@ -1,4 +1,7 @@
 {
-    "url": "$JAWSDB_URL",
-    "encoding": "utf8"
+  "host": "$DATABASE_HOSTNAME",
+  "user": "$DATABASE_USER",
+  "password": "$DATABASE_PASSWORD",
+  "database": "$DATABASE_DB",
+  "encoding": "utf8mb4"
 }

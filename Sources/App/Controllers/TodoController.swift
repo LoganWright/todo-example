@@ -2,20 +2,24 @@ import HTTP
 import Vapor
 
 final class TodoController: ResourceRepresentable {
+    /// List all available requests
     func index(request: Request) throws -> ResponseRepresentable {
-        return try Todo.all().makeNode().converted(to: JSON.self)
+        return try Todo.all().makeJSON()
     }
 
+    /// Create a new 'Todo'
     func create(request: Request) throws -> ResponseRepresentable {
-        var todo = try request.todo()
+        let todo = try request.todo()
         try todo.save()
         return todo
     }
 
+    /// Show a specific 'Todo' initialized automatically
     func show(request: Request, todo: Todo) throws -> ResponseRepresentable {
         return todo
     }
 
+    /// Show a specific 'Todo' initialized automatically
     func delete(request: Request, todo: Todo) throws -> ResponseRepresentable {
         try todo.delete()
         return JSON([:])
@@ -28,7 +32,6 @@ final class TodoController: ResourceRepresentable {
 
     func update(request: Request, todo: Todo) throws -> ResponseRepresentable {
         let new = try request.todo()
-        var todo = todo
         todo.merge(updates: new)
         try todo.save()
         return todo

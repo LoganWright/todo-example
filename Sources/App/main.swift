@@ -1,14 +1,24 @@
 import URI
 import HTTP
 import Vapor
-import VaporMySQL
+import LeafProvider
+import FluentProvider
+import MySQLProvider
 
-let drop = Droplet(
-    availableMiddleware: ["cors" : CorsMiddleware()],
-    serverMiddleware: ["file", "cors"],
-    preparations: [Todo.self],
-    providers: [VaporMySQL.Provider.self]
-)
+var config = try Config.default()
+#if os(macOS)
+config["fluent.driver"] = "memory"
+#endif
+
+let drop = try Droplet(config: config)
+drop.middleware.append(CorsMiddleware())
+drop.preparations.append(Todo.self)
+try drop.addProvider(FluentProvider.Provider.init())
+try drop.addProvider(LeafProvider.Provider)
+
+#if !os(macOS)
+try drop.addProvider(MySQLProvider.Provider)
+#endif
 
 // MARK: Landing Pages
 
@@ -22,10 +32,8 @@ drop.get("tests") { request in
     return Response(redirect: "http://todobackend.com/specs/index.html?\(todosUrl)")
 }
 
-// MARK: /todos/
-
 drop.grouped(TodoURLMiddleware()).resource("todos", TodoController())
 
 // MARK: Serve
 
-drop.run()
+try drop.run()
