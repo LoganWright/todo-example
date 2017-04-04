@@ -1,12 +1,14 @@
 {
     "application": {
-        "id": "3034A883-4B13-4AAF-874D-2C12F54B1D02"
+        "id": "A3014120-A1AE-4F77-8782-78044CDA1247",
+        "repo": "todo-one"
     },
     "organization": {
         "id": "CFD3A278-856A-4C5D-8B03-31E67D9AEFE5"
     },
     "project": {
-        "id": "3E8B1FA0-8C71-4EB5-80A0-7207D75A9F88"
+        "id": "93C8BBD8-CC41-457A-83B7-4F2BA3E4CC02"
     },
-    "replicas": 1
+    "replicas": 1,
+    "updated": 1491306729.22698
 }
